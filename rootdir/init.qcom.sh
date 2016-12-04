@@ -26,6 +26,11 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+#
+# Set shared touchpanel nodes ownership (these are proc_symlinks to the real sysfs nodes)
+#
+chown -LR system.system /proc/touchpanel
+
 target=`getprop ro.board.platform`
 if [ -f /sys/devices/soc0/soc_id ]; then
     platformid=`cat /sys/devices/soc0/soc_id`
@@ -396,5 +401,3 @@ echo 10 > /sys/module/process_reclaim/parameters/pressure_min
 echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
 echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
 echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-
-
