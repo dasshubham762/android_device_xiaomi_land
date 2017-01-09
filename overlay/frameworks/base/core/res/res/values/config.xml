@@ -444,4 +444,7 @@
         <item>"/data/dalvik-cache/arm/system@framework@boot.oat"</item>
         <item>"/data/dalvik-cache/arm/system@framework@services.jar@classes.dex"</item>
    </string-array>
+
+    <!-- Disable button brightness settings -->
+    <integer name="config_buttonBrightnessSettingDefault">0</integer>
 </resources>
