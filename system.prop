@@ -102,6 +102,7 @@ ro.sys.sdcardfs=true
 #Media
 media.msm8956.version=0
 media.msm8956hw=0
+mm.enable.qcom_parser=196495
 mm.enable.smoothstreaming=true 
 media.aac_51_output_enabled=true 
 vidc.enc.narrow.searchrange=1 

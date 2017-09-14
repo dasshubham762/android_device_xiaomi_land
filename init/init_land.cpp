@@ -126,52 +126,45 @@ static void init_alarm_boot_properties()
      }
 }
 
+void fp_properties(bool fpc)
+{
+    if (fpc) {
+        property_set("persist.sys.fp.goodix", "0");
+        property_set("persist.sys.fp.onstart", "1");
+        property_set("persist.sys.fp.vendor", "searchf");
+        property_set("ro.boot.fpsensor", "fpc");
+    } else {
+        property_set("persist.sys.fp.goodix", "1");
+        property_set("persist.sys.fp.onstart", "0");
+        property_set("persist.sys.fp.vendor", "goodix");
+        property_set("ro.boot.fpsensor", "gdx");
+        property_set("ro.hardware.fingerprint", "goodix");
+    }
+}
+
 void read_ramconfig()
 {
     if (is3GB()) {
+        //phone-xxhdpi-3072-dalvik-heap.mk
         property_set("dalvik.vm.heapstartsize", "8m");
         property_set("dalvik.vm.heapgrowthlimit", "288m");
         property_set("dalvik.vm.heapsize", "768m");
-        property_set("dalvik.vm.heaptargetutilization", "0.75");
         property_set("dalvik.vm.heapminfree", "512k");
-        property_set("dalvik.vm.heapmaxfree", "8m");
-        //HWUI
-        property_set("ro.hwui.texture_cache_size", "72");
-        property_set("ro.hwui.layer_cache_size", "48");
-        property_set("ro.hwui.r_buffer_cache_size", "8");
-        property_set("ro.hwui.path_cache_size", "32");
-        property_set("ro.hwui.gradient_cache_size", "1");
-        property_set("ro.hwui.drop_shadow_cache_size", "6");
-        property_set("ro.hwui.texture_cache_flushrate", "0.4");
-        property_set("ro.hwui.text_small_cache_width", "1024");
-        property_set("ro.hwui.text_small_cache_height", "1024");
-        property_set("ro.hwui.text_large_cache_width", "2048");
-        property_set("ro.hwui.text_large_cache_height", "1024");
     } else {
+        //phone-xxhdpi-2048-dalvik-heap.mk
         property_set("dalvik.vm.heapstartsize", "8m");
         property_set("dalvik.vm.heapgrowthlimit", "192m");
         property_set("dalvik.vm.heapsize", "512m");
-        property_set("dalvik.vm.heaptargetutilization", "0.75");
         property_set("dalvik.vm.heapminfree", "2m");
-        property_set("dalvik.vm.heapmaxfree", "8m");
-        //HWUI
-        property_set("ro.hwui.texture_cache_size", "72");
-        property_set("ro.hwui.layer_cache_size", "48");
-        property_set("ro.hwui.r_buffer_cache_size", "8");
-        property_set("ro.hwui.path_cache_size", "32");
-        property_set("ro.hwui.gradient_cache_size", "1");
-        property_set("ro.hwui.drop_shadow_cache_size", "6");
-        property_set("ro.hwui.texture_cache_flushrate", "0.4");
-        property_set("ro.hwui.text_small_cache_width", "1024");
-        property_set("ro.hwui.text_small_cache_height", "1024");
-        property_set("ro.hwui.text_large_cache_width", "2048");
-        property_set("ro.hwui.text_large_cache_height", "2048");
     }
+
+    property_set("dalvik.vm.heaptargetutilization", "0.75");
+    property_set("dalvik.vm.heapmaxfree", "8m");
 }
 
 void variant_properties()
 {
-    if (property_get("ro.xpe.device") != "land")
+    if (property_get("ro.cm.device") != "land")
         return;
 
     import_kernel_cmdline1(0, import_cmdline);
@@ -182,47 +175,22 @@ void variant_properties()
 
     //Variants
     if (board_id == "S88537AA1") {
-        property_set("ro.miui.support_fingerprint", "true");
         property_set("ro.build.display.wtid", "SW_S88537AA1_V079_M20_MP_XM");
-        property_set("persist.sys.fp.goodix", "0");
-        property_set("persist.sys.fp.onstart", "1");
-        property_set("persist.sys.fp.vendor", "searchf");
-        property_set("ro.boot.fpsensor", "fpc");
+        fp_properties(true);
     } else if (board_id == "S88537AB1") {
-        property_set("ro.miui.support_fingerprint", "true");
         property_set("ro.build.display.wtid", "SW_S88537AB1_V079_M20_MP_XM");
-        property_set("persist.sys.fp.goodix", "0");
-        property_set("persist.sys.fp.onstart", "1");
-        property_set("persist.sys.fp.vendor", "searchf");
-        property_set("ro.boot.fpsensor", "fpc");     
+        fp_properties(true);  
     } else if (board_id == "S88537AC1") {
         property_set("ro.build.display.wtid", "SW_S88537AC1_V079_M20_MP_XM");
-        property_set("ro.miui.support_fingerprint", "false");
-        property_set("persist.sys.fp.goodix", "1");
-        property_set("persist.sys.fp.onstart", "0");
-        property_set("persist.sys.fp.vendor", "goodix");
-        property_set("ro.boot.fpsensor", "gdx");
-        property_set("ro.hardware.fingerprint", "goodix");
+        fp_properties(false);
     } else if (board_id == "S88537BA1") {
-        property_set("ro.miui.support_fingerprint", "true");
         property_set("ro.build.display.wtid", "SW_S88537BA1_V079_M20_MP_XM");
-        property_set("persist.sys.fp.goodix", "0");
-        property_set("persist.sys.fp.onstart", "1");
-        property_set("persist.sys.fp.vendor", "searchf");
-        property_set("ro.boot.fpsensor", "fpc");
-        property_set("mm.enable.qcom_parser", "196495");
+        fp_properties(true);
     } else if (board_id == "S88537CA1") {
-        property_set("ro.miui.support_fingerprint", "true");
         property_set("ro.build.display.wtid", "SW_S88537CA1_V079_M20_MP_XM");
-        property_set("persist.sys.fp.goodix", "0");
-        property_set("persist.sys.fp.onstart", "1");
-        property_set("persist.sys.fp.vendor", "searchf");
-        property_set("ro.boot.fpsensor", "fpc");
-        property_set("mm.enable.qcom_parser", "196495");
+        fp_properties(true);
     } else if (board_id == "S88537EC1") {
         property_set("ro.build.display.wtid", "SW_S88537EC1_V079_M20_MP_XM");
-        property_set("ro.miui.support_fingerprint", "false");
-        property_set("mm.enable.qcom_parser", "196495");
     }
 
     if (board_id == "S88537AB1"){
