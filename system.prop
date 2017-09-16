@@ -51,7 +51,7 @@ persist.camera.isp.clock.optmz=0
 vidc.enc.dcvs.extra-buff-count=2
 camera.display.umax=1920x1080
 camera.display.lmax=1280x720
-media.camera.ts.monotonic=1
+media.camera.ts.monotonic=0
 persist.camera.imglib.cac3=2
 persist.camera.gyro.disable=0
 camera.lowpower.record.enable=1
@@ -97,7 +97,8 @@ ro.sys.sdcardfs=true
 
 #Media
 mm.enable.qcom_parser=17825791
-mm.enable.smoothstreaming=true 
+mm.enable.smoothstreaming=true
+media.msm8956hw=0
 media.aac_51_output_enabled=true 
 vidc.enc.narrow.searchrange=1 
 drm.service.enabled=true
