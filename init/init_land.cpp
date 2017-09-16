@@ -179,24 +179,22 @@ void variant_properties()
         fp_properties(true);
     } else if (board_id == "S88537AB1") {
         property_set("ro.build.display.wtid", "SW_S88537AB1_V079_M20_MP_XM");
+        property_override("ro.product.model", "Redmi 3X");
         fp_properties(true);  
     } else if (board_id == "S88537AC1") {
         property_set("ro.build.display.wtid", "SW_S88537AC1_V079_M20_MP_XM");
         fp_properties(false);
     } else if (board_id == "S88537BA1") {
         property_set("ro.build.display.wtid", "SW_S88537BA1_V079_M20_MP_XM");
+        property_set("mm.enable.qcom_parser", "196495");
         fp_properties(true);
     } else if (board_id == "S88537CA1") {
         property_set("ro.build.display.wtid", "SW_S88537CA1_V079_M20_MP_XM");
+        property_set("mm.enable.qcom_parser", "196495");
         fp_properties(true);
     } else if (board_id == "S88537EC1") {
         property_set("ro.build.display.wtid", "SW_S88537EC1_V079_M20_MP_XM");
-    }
-
-    if (board_id == "S88537AB1"){
-        property_override("ro.product.model", "Redmi 3X");
-    } else {
-        property_override("ro.product.model", "Redmi 3S");
+        property_set("mm.enable.qcom_parser", "196495");
     }
 
 }
