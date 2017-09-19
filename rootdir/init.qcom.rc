@@ -169,8 +169,6 @@ on post-fs-data
     mkdir /data/audio/acdbdata 0770 media audio
     mkdir /data/audio/acdbdata/delta 0770 media audio
 
-    setprop vold.post_fs_data_done 1
-
     #Create a folder for SRS to be able to create a usercfg file
     mkdir /data/data/media 0770 media media
 
@@ -185,10 +183,6 @@ on post-fs-data
     #mkdir /data/misc/SelfHost/storage/ 0700 system shell
     #mkdir /data/misc/SelfHost/Running/ 2750 system shell
     #mkdir /data/misc/SelfHost/socket/ 2770 system system
-
-    #Create PERFD deamon related dirs
-    mkdir /data/system/perfd 0770 root system
-    chmod 2770 /data/system/perfd
 
     #Create IOP  deamon related dirs
     mkdir /data/misc/iop 0770 root system
@@ -221,6 +215,12 @@ on post-fs-data
 
     mkdir /data/misc/sensors
     chmod 0775 /data/misc/sensors
+
+    # Create directories for perfd
+    mkdir /data/misc/perfd 2755 root system
+    mkdir /data/system/perfd 2770 root system
+
+    setprop vold.post_fs_data_done 1
 
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
