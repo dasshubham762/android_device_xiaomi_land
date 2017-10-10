@@ -115,6 +115,9 @@ ro.vendor.gt_library=libqti-gt.so
 #Time-service
 persist.timed.enable=true
 
+#Qualcomm Quickcharge 2.0
+persist.usb.hvdcp.detect=true
+
 #RIL
 DEVICE_PROVISIONED=1
 persist.data.iwlan.enable=false
