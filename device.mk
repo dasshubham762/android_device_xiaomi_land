@@ -108,8 +108,10 @@ PRODUCT_COPY_FILES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    mm-qcamera-app \
     camera.msm8937 \
     libmm-qcamera \
+    libmmjpeg_interface \
     Snap \
     libxml2
 
