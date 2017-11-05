@@ -135,10 +135,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libprotobuf-cpp-lite
 
-# Doze mode
-PRODUCT_PACKAGES += \
-    XiaomiDoze
-
 # Fingerprint
 PRODUCT_PACKAGES += \
     fingerprintd
