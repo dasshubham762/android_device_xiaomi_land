@@ -1,7 +1,6 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
 #           (C) 2017 The LineageOS Project
-# Copyright (C) 2017 The XPerience Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -64,8 +63,7 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.usb.accessory.xml:system/etc/permissions/android.hardware.usb.accessory.xml \
     frameworks/native/data/etc/android.hardware.usb.host.xml:system/etc/permissions/android.hardware.usb.host.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml \
-    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
-    frameworks/native/data/etc/android.software.midi.xml:system/etc/permissions/android.software.midi.xml
+    frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml
 
 # ANT
 PRODUCT_PACKAGES += \
@@ -111,9 +109,7 @@ PRODUCT_PACKAGES += \
     mm-qcamera-app \
     camera.msm8937 \
     libmm-qcamera \
-    libmmjpeg_interface \
-    Snap \
-    libxml2
+    libmmjpeg_interface
 
 # Consumerir
 PRODUCT_PACKAGES += \
@@ -143,6 +139,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
+
+# Fs_config
+PRODUCT_PACKAGES += \
+    fs_config_files
 
 # GPS
 PRODUCT_BOOT_JARS += \
@@ -197,6 +197,7 @@ PRODUCT_PACKAGES += \
 
 # Media
 PRODUCT_PACKAGES += \
+    libmm-omxcore \
     libc2dcolorconvert \
     libOmxAacEnc \
     libOmxAmrEnc \
@@ -207,7 +208,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
-# Media
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/media_codecs.xml:system/etc/media_codecs.xml \
     $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/etc/media_codecs_performance.xml \
@@ -237,7 +237,8 @@ PRODUCT_PACKAGES += \
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
-    librmnetctl
+    librmnetctl \
+    libxml2
 
 # Sensors
 PRODUCT_PACKAGES += \
@@ -246,6 +247,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:system/etc/sensors/hals.conf \
     $(LOCAL_PATH)/configs/sensors/sensor_def_qcomdev.conf:system/etc/sensors/sensor_def_qcomdev.conf
+
+# Snap
+PRODUCT_PACKAGES += \
+    Snap
 
 #Touchscreen
 PRODUCT_PACKAGES += \
@@ -260,7 +265,10 @@ PRODUCT_PACKAGES += \
     libQWiFiSoftApCfg \
     hostapd \
     wpa_supplicant \
-    wpa_supplicant.conf
+    libqsap_sdk \
+    libwpa_client \
+    wpa_supplicant.conf \
+    dhcpcd.conf
 
 # Inherit proprietary files
 $(call inherit-product-if-exists, vendor/xiaomi/land/land-vendor.mk)
