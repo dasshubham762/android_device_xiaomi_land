@@ -33,6 +33,8 @@
 // Camera dependencies
 #include "hardware/camera_common.h"
 
+#include <gui/SensorManager.h>
+
 namespace qcamera {
 
 typedef struct {
