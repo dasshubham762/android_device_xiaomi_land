@@ -30,7 +30,6 @@ $(call inherit-product, $(LOCAL_PATH)/device.mk)
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := land
 PRODUCT_NAME := pa_land
-PRODUCT_MODEL := Redmi 3S
 PRODUCT_MANUFACTURER := Xiaomi
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
@@ -40,3 +39,6 @@ TARGET_VENDOR_PRODUCT_NAME := land
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT=Xiaomi/land/land:6.0.1/MMB29M/V9.5.1.0.MALMIFA:user/release-keys \
     PRIVATE_BUILD_DESC="land-user 6.0.1 MMB29M V9.5.1.0.MALMIFA release-keys"
+
+PRODUCT_SYSTEM_PROPERTY_BLACKLIST += \
+    ro.product.model

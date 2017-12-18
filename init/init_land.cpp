@@ -162,7 +162,6 @@ void variant_properties()
         property_set("ro.build.display.wtid", "SW_S88537AA1_V092_M20_MP_XM");
     } else if (board_id == "S88537AB1") {
         property_set("ro.build.display.wtid", "SW_S88537AB1_V092_M20_MP_XM");
-        property_override("ro.product.model", "Redmi 3X");
     } else if (board_id == "S88537AC1") {
         property_set("ro.build.display.wtid", "SW_S88537AC1_V092_M20_MP_XM");
     } else if (board_id == "S88537BA1") {
@@ -173,6 +172,12 @@ void variant_properties()
         property_set("ro.build.display.wtid", "SW_S88537EC1_V092_M20_MP_XM");
     }
 
+    //Detect product model
+    if (board_id == "S88537AB1") {
+        property_set("ro.product.model", "Redmi 3X");
+    } else {
+        property_set("ro.product.model", "Redmi 3S");
+    }
 }
 
 void vendor_load_properties()
