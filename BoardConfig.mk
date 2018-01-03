@@ -130,11 +130,6 @@ TARGET_USE_SDCLANG := true
 # CPUsets
 ENABLE_CPUSETS := true
 
-# CM Hardware
-BOARD_USES_CYANOGEN_HARDWARE := true
-BOARD_HARDWARE_CLASS += \
-    hardware/cyanogen/cmhw
-
 # CNE / DPM
 BOARD_USES_QCNE := true
 
@@ -200,9 +195,6 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Peripheral manager
 TARGET_PER_MGR_ENABLED := true
-
-# QCOM support
-BOARD_USES_QCOM_HARDWARE := true
 
 # Power
 TARGET_POWERHAL_VARIANT := qcom
