@@ -206,7 +206,6 @@ USE_SENSOR_MULTI_HAL := true
 # SELinux
 BOARD_SEPOLICY_DIRS += \
     $(DEVICE_PATH)/sepolicy
-include device/qcom/sepolicy/sepolicy.mk
 
 # Time
 BOARD_USES_QC_TIME_SERVICES := true
