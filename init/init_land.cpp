@@ -37,7 +37,7 @@
 #include <sstream>
 #include <sys/sysinfo.h>
 
-//for cmdline parsing 
+//for cmdline parsing
 #include <android-base/file.h>
 #include <android-base/strings.h>
 
@@ -152,21 +152,17 @@ void read_ramconfig()
 
 void variant_properties()
 {
-    if (property_get("ro.cm.device") != "land")
-        return;
-
     import_kernel_cmdline1(0, import_cmdline);
-    
+
     //set board
     property_set("ro.product.wt.boardid", board_id.c_str());
-
 
     //Variants
     if (board_id == "S88537AA1") {
         property_set("ro.build.display.wtid", "SW_S88537AA1_V079_M20_MP_XM");
     } else if (board_id == "S88537AB1") {
         property_set("ro.build.display.wtid", "SW_S88537AB1_V079_M20_MP_XM");
-        property_override("ro.product.model", "Redmi 3X"); 
+        property_override("ro.product.model", "Redmi 3X");
     } else if (board_id == "S88537AC1") {
         property_set("ro.build.display.wtid", "SW_S88537AC1_V079_M20_MP_XM");
     } else if (board_id == "S88537BA1") {
