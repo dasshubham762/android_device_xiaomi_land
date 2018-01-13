@@ -19,7 +19,7 @@
 set -e
 
 # Initial copyright year
-export INITIAL_COPYRIGHT_YEAR=2016
+export INITIAL_COPYRIGHT_YEAR=2018
 
 # Required!
 DEVICE=land
