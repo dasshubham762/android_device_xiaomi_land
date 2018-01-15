@@ -1,6 +1,5 @@
 #
 # Copyright (C) 2016 The CyanogenMod Project
-#           (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -66,7 +65,7 @@ include $(call all-makefiles-under,$(LOCAL_PATH))
 
 IMS_LIBS := libimscamera_jni.so libimsmedia_jni.so
 
-IMS_SYMLINKS := $(addprefix $(TARGET_OUT)/app/ims/lib/arm64/,$(notdir $(IMS_LIBS)))
+IMS_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR_APPS)/ims/lib/arm64/,$(notdir $(IMS_LIBS)))
 $(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	@echo "IMS lib link: $@"
 	@mkdir -p $(dir $@)
@@ -74,21 +73,6 @@ $(IMS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /system/vendor/lib64/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(IMS_SYMLINKS)
-
-ADSP_IMAGES := \
-    adsp.b00 adsp.b01 adsp.b02 adsp.b03 \
-    adsp.b04 adsp.b05 adsp.b06 adsp.b07 \
-    adsp.b08 adsp.b08 adsp.b10 adsp.b11 \
-    adsp.b12 adsp.b13 adsp.mdt
-
-ADSP_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(ADSP_IMAGES)))
-$(ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "adsp firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(ADSP_SYMLINKS)
 
 GOODIX_IMAGES := \
     goodixfp.b00 goodixfp.b01 goodixfp.b02 goodixfp.b03 \
@@ -115,58 +99,6 @@ $(FPC_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(FPC_SYMLINKS)
-
-FING_IMAGES := \
-    fingerpr.b00 fingerpr.b01 fingerpr.b02 fingerpr.b03 \
-    fingerpr.b04 fingerpr.b05 fingerpr.b06 fingerpr.mdt
-
-FING_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(FING_IMAGES)))
-$(FING_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Fingerpr firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(FING_SYMLINKS)
-
-CPPF_IMAGES := \
-   cppf.b00 cppf.b01 cppf.b02 cppf.b03 \
-   cppf.b04 cppf.b05 cppf.b06 cppf.mdt
-
-CPPF_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(CPPF_IMAGES)))
-$(CPPF_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "cppf firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(CPPF_SYMLINKS)
-
-VENUS_IMAGES := \
-   venus.b00 venus.b01 venus.b02 venus.b03 \
-   venus.b04 venus.mdt
-
-VENUS_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(VENUS_IMAGES)))
-$(VENUS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "venus firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(VENUS_SYMLINKS)
-
-WIDEVINE_IMAGES := \
-   widevine.b00 widevine.b01 widevine.b02 widevine.b03 \
-   widevine.b04 widevine.b05 widevine.b06 widevine.mdt
-
-WIDEVINE_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(WIDEVINE_IMAGES)))
-$(WIDEVINE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "widevine firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(WIDEVINE_SYMLINKS)
 
 RFS_MSM_ADSP_SYMLINKS := $(TARGET_OUT)/rfs/msm/adsp/
 $(RFS_MSM_ADSP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
