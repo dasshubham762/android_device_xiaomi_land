@@ -1327,7 +1327,6 @@ lib64/libqti-iop.so
 lib64/libqti_performance.so
 lib/libqti_performance.so
 vendor/bin/perfd
-vendor/etc/msm_irqbalance.conf
 vendor/lib/libqc-opt.so
 vendor/lib/libqti-iop-client.so
 vendor/lib/libqti-perfd-client.so
