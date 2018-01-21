@@ -49,7 +49,6 @@ on boot
     write /sys/devices/system/cpu/cpu5/online 1
     write /sys/devices/system/cpu/cpu6/online 1
     write /sys/devices/system/cpu/cpu7/online 1
-    restorecon -R /sys/devices/system/cpu
 
 on enable-low-power
     # HMP scheduler (big.Little cluster related) settings
@@ -64,12 +63,6 @@ on enable-low-power
 
     # Disable thermal core_control to update interactive gov settings
     write /sys/module/msm_thermal/core_control/enabled 0
-
-    # disable thermal bcl hotplug to switch governor
-    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 0
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 0
-    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
 
     #  configure governor settings for little cluster
     write /sys/devices/system/cpu/cpu0/online 1
@@ -96,8 +89,6 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/min_sample_time 40000
     #write /sys/devices/system/cpu/cpu4/cpufreq/interactive/sampling_down_factor 40000
     #write /sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq 768000
-
-    restorecon -R /sys/devices/system/cpu
 
     # HMP Task packing settings
     write /proc/sys/kernel/sched_small_task 20
@@ -147,12 +138,6 @@ on enable-low-power
     # Re-enable thermal core_control
     write /sys/module/msm_thermal/core_control/enabled 1
 
-    # re-enable BCL hotplug
-    write /sys/devices/soc/soc:qcom,bcl/mode "disable"
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_mask 48
-    write /sys/devices/soc/soc:qcom,bcl/hotplug_soc_mask 48
-    write /sys/devices/soc/soc:qcom,bcl/mode "enable"
-
     # Enable power_efficient workqueue
     write /sys/module/workqueue/parameters/power_efficient 1
 
@@ -170,6 +155,14 @@ on enable-low-power
     write /sys/devices/system/cpu/cpu4/cpufreq/interactive/use_migration_notif 1
     write /proc/sys/kernel/sched_freq_inc_notify 50000
     write /proc/sys/kernel/sched_freq_dec_notify 50000
+
+    # Enable core control
+    write /sys/devices/system/cpu/cpu0/core_ctl/min_cpus 2
+    write /sys/devices/system/cpu/cpu0/core_ctl/max_cpus 4
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_up_thres 68
+    write /sys/devices/system/cpu/cpu0/core_ctl/busy_down_thres 40
+    write /sys/devices/system/cpu/cpu0/core_ctl/offline_delay_ms 100
+    write /sys/devices/system/cpu/cpu0/core_ctl/is_big_cluster 1
 
     # Enable dynamic clock gating
     write /sys/module/lpm_levels/lpm_workarounds/dynamic_clock_gating 1
@@ -204,8 +197,6 @@ on charger
     write /sys/devices/system/cpu/cpu5/online 0
     write /sys/devices/system/cpu/cpu6/online 0
     write /sys/devices/system/cpu/cpu7/online 0
-
-    restorecon -R /sys/devices/system/cpu
 
     write /sys/module/lpm_levels/parameters/sleep_disabled 0
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor powersave
