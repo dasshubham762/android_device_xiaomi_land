@@ -184,8 +184,6 @@ PRODUCT_COPY_FILES += \
 
 # Libshims
 PRODUCT_PACKAGES += \
-    libshims_ims \
-    libshim_camera \
     libshims_camera
 
 # Lights
