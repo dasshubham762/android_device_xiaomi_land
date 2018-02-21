@@ -1,5 +1,5 @@
 #!/system/bin/sh
-# Copyright (c) 2009-2015, The Linux Foundation. All rights reserved.
+# Copyright (c) 2009-2017, The Linux Foundation. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -82,7 +82,7 @@ start_msm_irqbalance_8939()
 {
 	if [ -f /system/bin/msm_irqbalance ]; then
 		case "$platformid" in
-		    "239" | "293" | "294" | "295" | "304")
+		    "239" | "293" | "294" | "295" | "304" | "313" | "338")
 			start msm_irqbalance;;
 		esac
 	fi
@@ -219,7 +219,7 @@ case "$target" in
                   ;;
         esac
         ;;
-    "msm8994" | "msm8992")
+    "msm8994" | "msm8992" | "msm8998")
         start_msm_irqbalance
         ;;
     "msm8996")
@@ -260,16 +260,16 @@ case "$target" in
              hw_platform=`cat /sys/devices/system/soc/soc0/hw_platform`
         fi
         case "$soc_id" in
-             "294" | "295" | "303" | "307" | "308" | "309")
+             "294" | "295" | "303" | "307" | "308" | "309" | "313" | "320")
                   case "$hw_platform" in
                        "Surf")
-     #                               setprop qemu.hw.mainkeys 0
+                                    setprop qemu.hw.mainkeys 0
                                     ;;
                        "MTP")
-     #                               setprop qemu.hw.mainkeys 0
+                                    setprop qemu.hw.mainkeys 0
                                     ;;
                        "RCM")
-     #                               setprop qemu.hw.mainkeys 0
+                                    setprop qemu.hw.mainkeys 0
                                     ;;
                   esac
                   ;;
@@ -289,7 +289,7 @@ case "$target" in
              hw_platform=`cat /sys/devices/system/soc/soc0/hw_platform`
         fi
         case "$soc_id" in
-             "293" | "304" )
+             "293" | "304" | "338" )
                   case "$hw_platform" in
                        "Surf")
                                     setprop qemu.hw.mainkeys 0
@@ -304,17 +304,6 @@ case "$target" in
                   ;;
        esac
         ;;
-esac
-
-bootmode=`getprop ro.bootmode`
-emmc_boot=`getprop ro.boot.emmc`
-case "$emmc_boot"
-    in "true")
-        if [ "$bootmode" != "charger" ]; then # start rmt_storage and rfs_access
-            start rmt_storage
-            start rfs_access
-        fi
-    ;;
 esac
 
 #
@@ -333,7 +322,7 @@ else
 fi
 
 cur_version_info=`cat /firmware/verinfo/ver_info.txt`
-if [ "$prev_version_info" != "$cur_version_info" ]; then
+if [ ! -f /firmware/verinfo/ver_info.txt -o "$prev_version_info" != "$cur_version_info" ]; then
     rm -rf /data/misc/radio/modem_config
     mkdir /data/misc/radio/modem_config
     chmod 770 /data/misc/radio/modem_config
@@ -342,59 +331,20 @@ if [ "$prev_version_info" != "$cur_version_info" ]; then
     cp /firmware/verinfo/ver_info.txt /data/misc/radio/ver_info.txt
     chown radio.radio /data/misc/radio/ver_info.txt
 fi
+cp /firmware/image/modem_pr/mbn_ota.txt /data/misc/radio/modem_config
+chown radio.radio /data/misc/radio/modem_config/mbn_ota.txt
 echo 1 > /data/misc/radio/copy_complete
 
-# Create /persist/alarm if necessary
-if [ ! -d /persist/alarm ]; then
-    mkdir /persist/alarm
-    chown system:system /persist/alarm
-    restorecon /persist/alarm
-fi
-
-#set fingerprint params
-if [ -d /sys/class/goodix_fp ]; then
-    setprop persist.sys.fp.sensor goodix
-else
-    setprop persist.sys.fp.sensor fpc
-fi
-
-# Set Memory paremeters.
-#
-# Set per_process_reclaim tuning parameters
-# 2GB 64-bit will have aggressive settings when compared to 1GB 32-bit
-# 1GB and less will use vmpressure range 50-70, 2GB will use 10-70
-# 1GB and less will use 512 pages swap size, 2GB will use 1024
-#
-# Set Low memory killer minfree parameters
-# 32 bit all memory configurations will use 15K series
-# 64 bit all memory configurations will use 18K series
-#
-# Set ALMK parameters (usually above the highest minfree values)
-# 32 bit will have 53K & 64 bit will have 81K
-#
-
-# Read adj series and set adj threshold for PPR and ALMK.
-# This is required since adj values change from framework to framework.
-#adj_series=`cat /sys/module/lowmemorykiller/parameters/adj`
-#adj_1="${adj_series#*,}"
-#set_almk_ppr_adj="${adj_1%%,*}"
-
-# PPR and ALMK should not act on HOME adj and below.
-# Normalized ADJ for HOME is 6. Hence multiply by 6
-# ADJ score represented as INT in LMK params, actual score can be in decimal
-# Hence add 6 considering a worst case of 0.9 conversion to INT (0.9*6).
-set_almk_ppr_adj=$(((set_almk_ppr_adj * 6) + 6))
-echo $set_almk_ppr_adj > /sys/module/lowmemorykiller/parameters/adj_max_shift
-echo $set_almk_ppr_adj > /sys/module/process_reclaim/parameters/min_score_adj
-
-echo 1 > /sys/module/process_reclaim/parameters/enable_process_reclaim
-echo 70 > /sys/module/process_reclaim/parameters/pressure_max
-echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
-echo 1 > /sys/module/lowmemorykiller/parameters/enable_adaptive_lmk
-
-echo 10 > /sys/module/process_reclaim/parameters/pressure_min
-echo 1024 > /sys/module/process_reclaim/parameters/per_swap_size
-echo "18432,23040,27648,32256,55296,80640" > /sys/module/lowmemorykiller/parameters/minfree
-echo 81250 > /sys/module/lowmemorykiller/parameters/vmpressure_file_min
-
-
+#check build variant for printk logging
+#current default minimum boot-time-default
+buildvariant=`getprop ro.build.type`
+case "$buildvariant" in
+    "userdebug" | "eng")
+        #set default loglevel to KERN_INFO
+        echo "6 6 1 7" > /proc/sys/kernel/printk
+        ;;
+    *)
+        #set default loglevel to KERN_WARNING
+        echo "4 4 1 4" > /proc/sys/kernel/printk
+        ;;
+esac
