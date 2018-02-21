@@ -196,6 +196,7 @@ TARGET_POWERHAL_VARIANT := qcom
 
 # RIL
 TARGET_RIL_VARIANT := caf
+PROTOBUF_SUPPORTED := true
 
 # Recovery
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom

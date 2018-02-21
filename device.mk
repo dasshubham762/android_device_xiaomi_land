@@ -126,7 +126,7 @@ PRODUCT_PACKAGES += \
 
 # DRM
 PRODUCT_PACKAGES += \
-    libprotobuf-cpp-lite
+    libprotobuf-cpp-full
 
 # Fingerprint
 PRODUCT_PACKAGES += \
