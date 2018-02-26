@@ -109,8 +109,7 @@ PRODUCT_PACKAGES += \
     consumerir.msm8937
 
 # Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
+include $(LOCAL_PATH)/rootdir/charger/charger.mk
 
 # Display
 PRODUCT_PACKAGES += \
