@@ -599,7 +599,7 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     disabled
     oneshot
 
-service charger /charger
+service charger /sbin/charger
     class charger
     group graphics system
     seclabel u:r:healthd:s0
