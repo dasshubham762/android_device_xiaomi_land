@@ -140,7 +140,7 @@ void read_ramconfig()
         property_set("dalvik.vm.heapminfree", "512k");
     } else {
         //phone-xxhdpi-2048-dalvik-heap.mk
-        property_set("dalvik.vm.heapstartsize", "8m");
+        property_set("dalvik.vm.heapstartsize", "16m");
         property_set("dalvik.vm.heapgrowthlimit", "192m");
         property_set("dalvik.vm.heapsize", "512m");
         property_set("dalvik.vm.heapminfree", "2m");
@@ -156,27 +156,27 @@ void variant_properties()
         return;
 
     import_kernel_cmdline1(0, import_cmdline);
-    
+
     //set board
     property_set("ro.product.wt.boardid", board_id.c_str());
 
 
     //Variants
     if (board_id == "S88537AA1") {
-        property_set("ro.build.display.wtid", "SW_S88537AA1_V079_M20_MP_XM");
+        property_set("ro.build.display.wtid", "SW_S88537AA1_V090_M20_MP_XM");
     } else if (board_id == "S88537AB1") {
-        property_set("ro.build.display.wtid", "SW_S88537AB1_V079_M20_MP_XM");
-        property_override("ro.product.model", "Redmi 3X"); 
+        property_set("ro.build.display.wtid", "SW_S88537AB1_V090_M20_MP_XM");
+        property_override("ro.product.model", "Redmi 3X");
     } else if (board_id == "S88537AC1") {
-        property_set("ro.build.display.wtid", "SW_S88537AC1_V079_M20_MP_XM");
+        property_set("ro.build.display.wtid", "SW_S88537AC1_V090_M20_MP_XM");
     } else if (board_id == "S88537BA1") {
-        property_set("ro.build.display.wtid", "SW_S88537BA1_V079_M20_MP_XM");
+        property_set("ro.build.display.wtid", "SW_S88537BA1_V090_M20_MP_XM");
         property_set("mm.enable.qcom_parser", "196495");
     } else if (board_id == "S88537CA1") {
-        property_set("ro.build.display.wtid", "SW_S88537CA1_V079_M20_MP_XM");
+        property_set("ro.build.display.wtid", "SW_S88537CA1_V090_M20_MP_XM");
         property_set("mm.enable.qcom_parser", "196495");
     } else if (board_id == "S88537EC1") {
-        property_set("ro.build.display.wtid", "SW_S88537EC1_V079_M20_MP_XM");
+        property_set("ro.build.display.wtid", "SW_S88537EC1_V090_M20_MP_XM");
         property_set("mm.enable.qcom_parser", "196495");
     }
 
@@ -185,7 +185,7 @@ void variant_properties()
 void vendor_load_properties()
 {
 
-    // init 
+    // init
     read_ramconfig();
     init_alarm_boot_properties();
     variant_properties();
