@@ -115,14 +115,7 @@ ENABLE_CPUSETS := true
 BOARD_USES_QCNE := true
 
 # Dexpreopt
-ifeq ($(HOST_OS),linux)
-  ifneq ($(TARGET_BUILD_VARIANT),eng)
-    ifeq ($(WITH_DEXPREOPT),)
-      WITH_DEXPREOPT := true
-    endif
-  endif
-endif
-WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
+WITH_DEXPREOPT := false
 
 #Display
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
