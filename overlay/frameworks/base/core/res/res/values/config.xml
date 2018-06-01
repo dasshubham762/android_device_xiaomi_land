@@ -95,6 +95,9 @@
     <!-- Whether the display blanks itself when transitioning from a doze to a non-doze state -->
     <bool name="config_displayBlanksAfterDoze">true</bool>
 
+    <!-- Doze: should the TYPE_PICK_UP_GESTURE sensor be used as a pulse signal. -->
+    <bool name="config_dozePulsePickup">true</bool>
+
     <!-- Whether WiFi display is supported by this device.
          There are many prerequisites for this feature to work correctly.
          Here are a few of them:
